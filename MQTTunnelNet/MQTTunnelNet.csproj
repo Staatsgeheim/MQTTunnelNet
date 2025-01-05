@@ -1,0 +1,32 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <Title>MQTTunnelNet</Title>
+    <Authors>Staatsgeheim</Authors>
+    <Description>MQTTunnelNet is a managed wrapper around libmqttunnel (https://github.com/Staatsgeheim/libmqttunnel)</Description>
+    <PackageProjectUrl>https://github.com/Staatsgeheim/MQTTunnelNet</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/Staatsgeheim/MQTTunnelNet</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageTags>MQTT;TCP Tunnel;Tunnel;MQTT Tunnel</PackageTags>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
+    <PackageReleaseNotes>Initial release</PackageReleaseNotes>
+    <Copyright>Copyright (c) 2025 Maarten Boone</Copyright>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\LICENSE.txt">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+    <None Include="..\README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
+
+</Project>
