@@ -21,7 +21,7 @@
   <ItemGroup>
     <None Include="lib\libmqttunnel.dll">
       <Pack>true</Pack>
-      <PackagePath>runtimes\win-x64\native</PackagePath>
+      <PackagePath>lib\net8.0</PackagePath>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
