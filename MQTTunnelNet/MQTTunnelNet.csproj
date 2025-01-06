@@ -17,6 +17,9 @@
     <PackageReleaseNotes>Initial release</PackageReleaseNotes>
     <Copyright>Copyright (c) 2025 Maarten Boone</Copyright>
 	<LangVersion>10.0</LangVersion>
+	<Version>1.0.1.0</Version>
+	<AssemblyVersion>1.0.1.0</AssemblyVersion>
+	<FileVersion>1.0.1.0</FileVersion>
   </PropertyGroup>
 
   <ItemGroup>
