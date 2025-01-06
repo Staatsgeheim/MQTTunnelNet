@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
+    <TargetFrameworks>net48;net8.0</TargetFrameworks>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
@@ -16,12 +16,21 @@
     <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
     <PackageReleaseNotes>Initial release</PackageReleaseNotes>
     <Copyright>Copyright (c) 2025 Maarten Boone</Copyright>
+	<LangVersion>10.0</LangVersion>
   </PropertyGroup>
 
   <ItemGroup>
     <None Include="lib\libmqttunnel.dll">
       <Pack>true</Pack>
       <PackagePath>lib\net8.0</PackagePath>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="lib\libmqttunnel.dll">
+      <Pack>true</Pack>
+      <PackagePath>lib\net48</PackagePath>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
