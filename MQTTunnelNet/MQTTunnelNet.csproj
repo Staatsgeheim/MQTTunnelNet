@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net48;net8.0</TargetFrameworks>
+    <TargetFrameworks>net45;net451;net452;net46;net461;net462;net47;net471;net472;net48;net481;net5.0;net6.0;net7.0;net8.0;netstandard2.0;netstandard2.1;netcoreapp3.0;netcoreapp3.1</TargetFrameworks>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
@@ -14,30 +14,27 @@
     <PackageTags>MQTT;TCP Tunnel;Tunnel;MQTT Tunnel</PackageTags>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
-    <PackageReleaseNotes>Initial release</PackageReleaseNotes>
+    <PackageReleaseNotes></PackageReleaseNotes>
     <Copyright>Copyright (c) 2025 Maarten Boone</Copyright>
 	<LangVersion>10.0</LangVersion>
-	<Version>1.0.1.0</Version>
-	<AssemblyVersion>1.0.1.0</AssemblyVersion>
-	<FileVersion>1.0.1.0</FileVersion>
+	<Version>1.0.2.0</Version>
+	<AssemblyVersion>1.0.2.0</AssemblyVersion>
+	<FileVersion>1.0.2.0</FileVersion>
   </PropertyGroup>
 
   <ItemGroup>
-    <None Include="lib\libmqttunnel.dll">
+    <None Include="lib\win-x64\libmqttunnel.dll">
       <Pack>true</Pack>
-      <PackagePath>lib\net8.0</PackagePath>
+      <PackagePath>runtimes/win-x64/native/</PackagePath>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="lib\win-x86\libmqttunnel.dll">
+      <Pack>true</Pack>
+      <PackagePath>runtimes/win-x86/native/</PackagePath>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
-
-  <ItemGroup>
-    <None Include="lib\libmqttunnel.dll">
-      <Pack>true</Pack>
-      <PackagePath>lib\net48</PackagePath>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-
+  
   <ItemGroup>
     <None Include="..\LICENSE.txt">
       <Pack>True</Pack>
