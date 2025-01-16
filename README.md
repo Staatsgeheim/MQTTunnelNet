@@ -2,8 +2,55 @@
 
 This library is a wrapper around libmqttunnel (https://github.com/Staatsgeheim/libmqttunnel)
 
+# Changelog
 
-# v1.0.2
+## v1.0.3
+* Changed the native library loading mechanism for cross platform compatibility 
+* Added MacOS x64 support
+* Added MacOS ARM64 support
+* Added Linux x64 support
+* Added .NET 9 support
+
+
+#### The library now supports:
+##### Platforms:
+* Windows x86
+* Windows x64
+* MacOS x64*
+* MacOS ARM64*
+* Linux x64
+
+###### MacOS Notes*
+Run
+```xattr -r -d com.apple.quarantine libmqttunnel_x64.dylib```
+or
+```xattr -r -d com.apple.quarantine libmqttunnel_arm64.dylib```
+to enable the libary to load unsigned
+
+##### Runtimes:
+* net45
+* net451
+* net452
+* net46
+* net461
+* net462
+* net463
+* net47
+* net471
+* net472
+* net48
+* net481
+* net5.0
+* net6.0
+* net7.0
+* net8.0
+* net9.0
+* netstandard2.0
+* netstandard2.1
+* netcoreapp3.0
+* netcoreapp3.1
+
+## v1.0.2
 
 * Added 32 bits support
 * Added support to load configs from memory instead of disk
@@ -28,6 +75,7 @@ net452
 net46
 net461
 net462
+net463
 net47
 net471
 net472
@@ -37,6 +85,7 @@ net5.0
 net6.0
 net7.0
 net8.0
+net9.0
 netstandard2.0
 netstandard2.1
 netcoreapp3.0
@@ -134,14 +183,14 @@ Example: Local port = 2022, Remote port = 22,
 ```mermaid
 sequenceDiagram
 
-LocalTCP ->> LocalMQTunnel: conn read from port 2022
-LocalMQTunnel ->> MQTTBroker: Publish to local port topic '/2022'
-MQTTBroker ->> RemoteMQTunnel: Recieve from local port topic '/2022'
-RemoteMQTunnel ->> RemoteTCP: conn write to port 22
-RemoteTCP ->> RemoteMQTunnel: conn read from port 22
-RemoteMQTunnel ->> MQTTBroker: Publish to local port topic '/22'
-MQTTBroker ->> LocalMQTunnel: Recieve from local port topic '/22'
-LocalMQTunnel ->> LocalTCP: conn write to port 2022
+LocalTCP ->> LocalMQTTunnel: conn read from port 2022
+LocalMQTTunnel ->> MQTTBroker: Publish to local port topic '/2022'
+MQTTBroker ->> RemoteMQTTunnel: Recieve from local port topic '/2022'
+RemoteMQTTunnel ->> RemoteTCP: conn write to port 22
+RemoteTCP ->> RemoteMQTTunnel: conn read from port 22
+RemoteMQTTunnel ->> MQTTBroker: Publish to local port topic '/22'
+MQTTBroker ->> LocalMQTTunnel: Recieve from local port topic '/22'
+LocalMQTTunnel ->> LocalTCP: conn write to port 2022
 ```
 
 ## More internal architecture
@@ -152,16 +201,16 @@ sequenceDiagram
 participant Remote
 participant RemoteTCP
 participant RemoteTCPConnection
-participant RemoteMQTunnel
+participant RemoteMQTTunnel
 
-RemoteMQTunnel ->> RemoteMQTunnel: subscribe control topic
-LocalMQTunnel ->> LocalMQTunnel: make a Tunnel instance which includes local/remote port pair
-LocalMQTunnel ->> LocalTCP: NewTCPConnection()
+RemoteMQTTunnel ->> RemoteMQTTunnel: subscribe control topic
+LocalMQTTunnel ->> LocalMQTTunnel: make a Tunnel instance which includes local/remote port pair
+LocalMQTTunnel ->> LocalTCP: NewTCPConnection()
 LocalTCP ->> LocalTCP: start listening
 Local ->> LocalTCP: connect
-LocalTCP ->> LocalMQTunnel: OpenTunnel()
-LocalMQTunnel ->> RemoteMQTunnel: Publish control packet
-RemoteMQTunnel ->> RemoteTCPConnection: NewTCPConnection()
+LocalTCP ->> LocalMQTTunnel: OpenTunnel()
+LocalMQTTunnel ->> RemoteMQTTunnel: Publish control packet
+RemoteMQTTunnel ->> RemoteTCPConnection: NewTCPConnection()
 RemoteTCPConnection ->> RemoteTCP: connect()
 RemoteTCP ->> Remote: connect()
 ```
