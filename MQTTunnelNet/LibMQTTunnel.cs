@@ -50,10 +50,10 @@ namespace MQTTunnelNet
 #if NET5_0_OR_GREATER
             
             if (OperatingSystem.IsWindows()) {
-                if (IntPtr.Size == 4) {
-                    libmqttunnel = NativeLibrary.Load(Path.Combine(libmqttunnelPath, WINDOWS_X86.LibraryName));
-                } else {
+                if (RuntimeInformation.ProcessArchitecture == Architecture.X64) {
                     libmqttunnel = NativeLibrary.Load(Path.Combine(libmqttunnelPath, WINDOWS_X64.LibraryName));
+                } else if (RuntimeInformation.ProcessArchitecture == Architecture.X86) {
+                    libmqttunnel = NativeLibrary.Load(Path.Combine(libmqttunnelPath, WINDOWS_X86.LibraryName));
                 }
             } else if (OperatingSystem.IsMacOS()) {
                 if (RuntimeInformation.ProcessArchitecture == Architecture.X64) {
@@ -62,10 +62,13 @@ namespace MQTTunnelNet
                 else if (RuntimeInformation.ProcessArchitecture == Architecture.Arm64) {
                     libmqttunnel = NativeLibrary.Load(Path.Combine(libmqttunnelPath, MACOS_ARM64.LibraryName));
                 }
-            }
-            else if (OperatingSystem.IsLinux()) {
+            } else if (OperatingSystem.IsLinux()) {
                 if (RuntimeInformation.ProcessArchitecture == Architecture.X64) {
                     libmqttunnel = NativeLibrary.Load(Path.Combine(libmqttunnelPath, LINUX_X64.LibraryName));
+                } else if (RuntimeInformation.ProcessArchitecture == Architecture.X86) {
+                    libmqttunnel = NativeLibrary.Load(Path.Combine(libmqttunnelPath, LINUX_X86.LibraryName));
+                } else if (RuntimeInformation.ProcessArchitecture == Architecture.Arm64) {
+                    libmqttunnel = NativeLibrary.Load(Path.Combine(libmqttunnelPath, LINUX_ARM64.LibraryName));
                 }
             }
             if(libmqttunnel == IntPtr.Zero)
@@ -118,6 +121,16 @@ namespace MQTTunnelNet
         static class LINUX_X64
         {
             internal const string LibraryName = "libmqttunnel_x64.so";
+        }
+
+        static class LINUX_X86
+        {
+            internal const string LibraryName = "libmqttunnel_x86.so";
+        }
+
+        static class LINUX_ARM64
+        {
+            internal const string LibraryName = "libmqttunnel_arm64.so";
         }
     }
 }

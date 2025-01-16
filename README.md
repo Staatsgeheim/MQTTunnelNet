@@ -5,6 +5,11 @@ This library is a wrapper around libmqttunnel (https://github.com/Staatsgeheim/l
 
 # Changelog
 
+## v1.0.4
+* Added Linux ARM64 support
+* Added Linux x86 support
+
+
 ## v1.0.3
 * Changed the native library loading mechanism for cross platform compatibility 
 * Added MacOS x64 support

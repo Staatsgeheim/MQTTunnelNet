@@ -11,15 +11,15 @@
     <PackageProjectUrl>https://github.com/Staatsgeheim/MQTTunnelNet</PackageProjectUrl>
     <RepositoryUrl>https://github.com/Staatsgeheim/MQTTunnelNet</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
-    <PackageTags>MQTT;TCP Tunnel;Tunnel;MQTT Tunnel;MacOS;Linux;Windows</PackageTags>
+    <PackageTags>MQTT;MQTTTunnel;MQTTunnel;TCP;TCPTunnel;Tunnel;MacOS;Linux;Windows</PackageTags>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
     <PackageReleaseNotes></PackageReleaseNotes>
     <Copyright>Copyright (c) 2025 Maarten Boone</Copyright>
 	  <LangVersion>10.0</LangVersion>
-	  <Version>1.0.3.0</Version>
-	  <AssemblyVersion>1.0.3.0</AssemblyVersion>
-	  <FileVersion>1.0.3.0</FileVersion>
+	  <Version>1.0.4.0</Version>
+	  <AssemblyVersion>1.0.4.0</AssemblyVersion>
+	  <FileVersion>1.0.4.0</FileVersion>
   </PropertyGroup>
 
   <ItemGroup>
@@ -51,6 +51,18 @@
       <Link>libmqttunnel_x64.so</Link>
       <Pack>true</Pack>
       <PackagePath>runtimes/linux-x64/native/</PackagePath>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="lib\linux-x86\libmqttunnel_x86.so">
+      <Link>libmqttunnel_x86.so</Link>
+      <Pack>true</Pack>
+      <PackagePath>runtimes/linux-x86/native/</PackagePath>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="lib\linux-arm64\libmqttunnel_arm64.so">
+      <Link>libmqttunnel_arm64.so</Link>
+      <Pack>true</Pack>
+      <PackagePath>runtimes/linux-arm64/native/</PackagePath>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
