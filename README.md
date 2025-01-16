@@ -1,4 +1,5 @@
 # MQTTunnelNet: Tunnel TCP via MQTT broker
+[![NuGet](https://img.shields.io/nuget/v/MQTTunnelNet.svg)](https://www.nuget.org/packages/MQTTunnelNet/)
 
 This library is a wrapper around libmqttunnel (https://github.com/Staatsgeheim/libmqttunnel)
 
