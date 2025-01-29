@@ -28,7 +28,7 @@ namespace MQTTunnelNet
             var libmqttunnelPath = Environment.GetEnvironmentVariable("LIBMQTTUNNEL_PATH") ?? "";
             var libmqttunnel = IntPtr.Zero;
 
-#if NET45_OR_GREATER || NETCOREAPP3_0 || NETCOREAPP3_1 || NETSTANDARD2_0 || NETSTANDARD2_1
+#if NET45_OR_GREATER || NETSTANDARD2_0 || NETSTANDARD2_1
             if (IntPtr.Size == 4)
             {
                 libmqttunnel = WINDOWS_X86.LoadLibrary(Path.Combine(libmqttunnelPath, WINDOWS_X86.LibraryName));
@@ -40,29 +40,39 @@ namespace MQTTunnelNet
 
             if (libmqttunnel == IntPtr.Zero)
                 return;
-
+            
             StartTunnel = GetMethodDelegate<DStartTunnel>(WINDOWS_X86.GetProcAddress(libmqttunnel, "StartTunnel"));
             ConnectTunnel = GetMethodDelegate<DConnectTunnel>(WINDOWS_X86.GetProcAddress(libmqttunnel, "ConnectTunnel"));
             StartTunnelMem = GetMethodDelegate<DStartTunnelMem>(WINDOWS_X86.GetProcAddress(libmqttunnel, "StartTunnelMem"));
             ConnectTunnelMem = GetMethodDelegate<DConnectTunnelMem>(WINDOWS_X86.GetProcAddress(libmqttunnel, "ConnectTunnelMem"));
-
 #endif
-#if NET5_0_OR_GREATER
-            
+#if NET5_0_OR_GREATER || NETCOREAPP3_0 || NETCOREAPP3_1
+#if NETCOREAPP3_0 || NETCOREAPP3_1
+            if (RuntimeInformation.OSDescription.Contains("Microsoft Windows")) {
+#else
             if (OperatingSystem.IsWindows()) {
+#endif
                 if (RuntimeInformation.ProcessArchitecture == Architecture.X64) {
                     libmqttunnel = NativeLibrary.Load(Path.Combine(libmqttunnelPath, WINDOWS_X64.LibraryName));
                 } else if (RuntimeInformation.ProcessArchitecture == Architecture.X86) {
                     libmqttunnel = NativeLibrary.Load(Path.Combine(libmqttunnelPath, WINDOWS_X86.LibraryName));
                 }
+#if NETCOREAPP3_0 || NETCOREAPP3_1
+            } else if (RuntimeInformation.OSDescription.Contains("Darwin")) {
+#else
             } else if (OperatingSystem.IsMacOS()) {
+#endif
                 if (RuntimeInformation.ProcessArchitecture == Architecture.X64) {
                     libmqttunnel = NativeLibrary.Load(Path.Combine(libmqttunnelPath, MACOS_X64.LibraryName));
                 }
                 else if (RuntimeInformation.ProcessArchitecture == Architecture.Arm64) {
                     libmqttunnel = NativeLibrary.Load(Path.Combine(libmqttunnelPath, MACOS_ARM64.LibraryName));
                 }
+#if NETCOREAPP3_0 || NETCOREAPP3_1
+            } else {
+#else
             } else if (OperatingSystem.IsLinux()) {
+#endif
                 if (RuntimeInformation.ProcessArchitecture == Architecture.X64) {
                     libmqttunnel = NativeLibrary.Load(Path.Combine(libmqttunnelPath, LINUX_X64.LibraryName));
                 } else if (RuntimeInformation.ProcessArchitecture == Architecture.X86) {
@@ -79,7 +89,7 @@ namespace MQTTunnelNet
             StartTunnelMem = GetMethodDelegate<DStartTunnelMem>(NativeLibrary.GetExport(libmqttunnel, "StartTunnelMem"));
             ConnectTunnelMem = GetMethodDelegate<DConnectTunnelMem>(NativeLibrary.GetExport(libmqttunnel, "ConnectTunnelMem"));
 #endif
-        }
+            }
 
         private static T GetMethodDelegate<T>(IntPtr functionPtr) where T : class
         {

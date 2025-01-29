@@ -5,6 +5,10 @@ This library is a wrapper around libmqttunnel (https://github.com/Staatsgeheim/l
 
 # Changelog
 
+## v1.0.5
+* Added configuration option to ignore SSL errors
+* Fixed OSX x64 library, the build was corrupted in 1.0.4
+
 ## v1.0.4
 * Added Linux ARM64 support
 * Added Linux x86 support
@@ -128,6 +132,7 @@ Using a config in memory
     {
         "host": "mqttbroker.example",
         "port": 8883,
+        "ignoreSslErrors": false,
         "username", "",
         "password", "",
         "caCert": "root-CA.crt",
@@ -165,6 +170,7 @@ You can use client certs as well as username/password or both in the Config file
 {
     "host": "mqttbroker.example",
     "port": 8883,
+    "ignoreSslErrors": true,
     "username", "",
     "password", "",
     "caCert": "root-CA.crt",
