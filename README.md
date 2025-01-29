@@ -5,6 +5,10 @@ This library is a wrapper around libmqttunnel (https://github.com/Staatsgeheim/l
 
 # Changelog
 
+## v1.0.6
+* Fixed the library loading routine for Linux and OSX, netstandard2.0 and netstandard2.1 work properly now
+* More fixed related to native library handling
+
 ## v1.0.5
 * Added configuration option to ignore SSL errors
 * Fixed OSX x64 library, the build was corrupted in 1.0.4
